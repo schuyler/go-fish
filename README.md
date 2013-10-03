@@ -38,7 +38,7 @@ stuff to consider
 references
 ----------
 * [go-json-rest](https://github.com/ant0ine/go-json-rest), a REST server framework with [a blog post](http://blog.ant0ine.com/typepad/2013/04/introducing-go-json-rest.html)
-* a [skip list](https://bitbucket.org/ede/go-skiplist) or a [red-black tree](https://github.com/petar/GoLLRB)
+* a [skip list](https://bitbucket.org/ede/go-skiplist) or a [red-black tree](https://github.com/petar/GoLLRB) for indexing keys in memory
 * [snappy](https://code.google.com/p/snappy-go/) for compressing values?
 * [wendy](https://github.com/secondbit/wendy/) - another Go DHT
 * [vclock](https://labix.org/vclock) - vector clocks for Go
