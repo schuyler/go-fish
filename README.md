@@ -28,6 +28,8 @@ stuff to consider
 
 references
 ----------
+* [web.go](https://github.com/hoisie/web) - super lightweight web framework
+* [go-rest](https://github.com/ungerik/go-rest) - a REST server framework with a lot of interesting ideas, but only supports `GET` and `POST`???
 * one of these [skip lists](https://code.google.com/p/go-wiki/wiki/Projects#Data_Structures) for in-memory key storage
 * [gocask](https://code.google.com/p/gocask/) provides an (incomplete) implementation of Bitcask
 * [leveldb-go](https://code.google.com/p/leveldb-go/) - another option for disk store
