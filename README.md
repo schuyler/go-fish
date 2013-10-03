@@ -20,10 +20,19 @@ objectives
 * easy to manage
 * maybe fast, someday
 
+components
+----------
+* distributed hash table / messaging bus
+* key-value store
+* JSON REST API
+
 stuff to consider
 -----------------
 * how and where to store secondary indexes
-* read repair, anti-entropy, blah
+* compaction
+* [hinted handoff](http://www.datastax.com/dev/blog/modern-hinted-handoff)
+* active anti-entropy
+* read repair
 * conflict resolution
 
 references
@@ -36,7 +45,6 @@ references
 
 discarded options
 -----------------
-
 * [gocask](https://code.google.com/p/gocask/) provides an (incomplete) implementation of Bitcask
 * [leveldb-go](https://code.google.com/p/leveldb-go/) - another option for disk store, but not mature yet
 * [dht](https://github.com/nictuku/dht) - a distributed hash table implementation in Go, but too focused on BitTorrent?
