@@ -42,11 +42,11 @@ references
 * [snappy](https://code.google.com/p/snappy-go/) for compressing values?
 * [wendy](https://github.com/secondbit/wendy/) - another Go DHT
 * [vclock](https://labix.org/vclock) - vector clocks for Go
-* [hashring](https://github.com/warlockcc/golibs/tree/master/hashring) and [consistent](https://github.com/stathat/consistent) - consistent hashing implementations
-
+* [hashring](https://github.com/warlockcc/golibs/tree/master/hashring) - consistent hashing implementation 
+ 
 discarded options
 -----------------
 * [gocask](https://code.google.com/p/gocask/) provides an (incomplete) implementation of Bitcask
 * [leveldb-go](https://code.google.com/p/leveldb-go/) - another option for disk store, but not mature yet
 * [dht](https://github.com/nictuku/dht) - a distributed hash table implementation in Go, but too focused on BitTorrent?
-
+* [consistent](https://github.com/stathat/consistent) - consistent hashing implementation, but it uses CRC32 as a "hash"
