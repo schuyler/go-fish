@@ -42,6 +42,7 @@ references
 * [snappy](https://code.google.com/p/snappy-go/) for compressing values?
 * [wendy](https://github.com/secondbit/wendy/) - another Go DHT
 * [vclock](https://labix.org/vclock) - vector clocks for Go
+* [hashring](https://github.com/warlockcc/golibs/tree/master/hashring) and [consistent](https://github.com/stathat/consistent) - consistent hashing implementations
 
 discarded options
 -----------------
