@@ -43,6 +43,8 @@ references
 * [wendy](https://github.com/secondbit/wendy/) - another Go DHT
 * [vclock](https://labix.org/vclock) - vector clocks for Go
 * [hashring](https://github.com/warlockcc/golibs/tree/master/hashring) - consistent hashing implementation 
+* [doozer](https://github.com/ha/doozerd) - highly available leaderless consistent data store
+* [tiedot](https://github.com/HouzuoGuo/tiedot) - json document database (also embeddable)
  
 discarded options
 -----------------
