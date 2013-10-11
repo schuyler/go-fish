@@ -32,7 +32,7 @@ For performance, the cluster could be configured to wait for confirmation of the
 
 Since each peer in the cluster would have a complete copy of the write log, any peer could, in theory, maintain a copy of the current version of every data structure. At the outset, this means that we can load balance all read and write requests to any peer in the cluster.
 
-The application of the Raft algorithm in this fashion implies that a go-fish cluster would sustain the loss of up to (*n*/2)+1 nodes at any time, for all *n* > 2, without loss of uptime.
+The application of the Raft algorithm in this fashion implies that a go-fish cluster would sustain the loss of up to (*n* / 2 + 1) nodes at any time, for all *n* > 2, without loss of uptime.
 
 The existence and clean design of the goraft library makes this a very straightforward proposition.
 
@@ -40,15 +40,15 @@ The existence and clean design of the goraft library makes this a very straightf
 
 At the outset, we'd implement a single partition of the entire data on every node for simplicity. However, we want to design against the point in time where we'd like to store more data than fits in memory on a single machine. Proper partitioning will allow us to use the entire memory allocation of the cluster, divided by a replication factor, as the available space for hosting data structures.
 
-We can divide the data into some constant number of partitions, each containing its own copy of every data structure type (e.g. strings, hashes, lists, etc). We assign any data entry to a partition by taking a hash of the key (regardless of structure type), modulo the number of partitions.
+We can divide the data into some constant number of partitions, each containing its own instance of each data structure type (e.g. strings, hashes, lists, etc). We assign any particular data entry to a partition by taking a hash of the key (regardless of structure type), modulo the number of partitions.
 
-Each peer would host a number of partitions equal to *p* / *n* x *r*, where *p* is the number of partitions and *r* a configuration-dependent read replication factor.
+Each peer would host a number of partitions equal to (*p* / *n* x *r*), where *p* is the number of partitions and *r* a configuration-dependent read replication factor.
 
-Each partition would continue to be available as long at least one of its hosts were available. However, since every peer records the entirety of the write log, any peer can recreate any partition from its copy of the log, without fetching additional data off the network. This is probably okay because disk space is always cheaper than memory.
+Each partition would continue to be available as long at least one of its hosts were available. However, since every peer records the entirety of the write log, any peer can recreate any partition from its copy of the log, without fetching additional data off the network. This is probably okay because disk is always cheaper than memory.
 
 Every peer would maintain a list of the *r* peers known to be hosting each of the *p* partitions at the current time. Any read request sent to a peer *not* hosting the data in the requested partition proxy the request to one or more of the peers currently hosting it.
 
-Whenever a new Raft leader is elected, it would check each partition to ensure that *n* hosts for that partition are alive and well. If not, it would select a requisite number of new hosts by means of a consistent hash, and issue a (logged) command instructing those peers to begin building the partition from their copies of the log. Once a peer completes the reconstruction of the partition, it issues a command advising the cluster that it henceforth hosts a live copy of that partition and other peers can proxy read requests to it.
+Whenever a new Raft leader is elected, it would check each partition to ensure that *n* hosts for that partition are alive and well. If not, then for each such partition, the leader would select a requisite number of new hosts by means of a consistent hash, and issue a (logged) command instructing those peers to begin building the partition from their copies of the log. Once a peer completes the reconstruction of the partition, it issues a command advising the cluster that it henceforth hosts a live copy of that partition and other peers can proxy read requests to it.
 
 Eventually, peers could in principle checkpoint whole partitions to disk in order to speed up partition recovery.
 
