@@ -36,7 +36,8 @@ references
 * [snappy](https://code.google.com/p/snappy-go/) for compressing values?
 * [wendy](https://github.com/secondbit/wendy/) - another Go DHT
 * [vclock](https://labix.org/vclock) - vector clocks for Go
-* [hashring](https://github.com/warlockcc/golibs/tree/master/hashring) - consistent hashing implementation 
+* [hashring](https://github.com/warlockcc/golibs/tree/master/hashring) - consistent hashing implementation
+* [goraft](https://github.com/goraft/raft) - an implementation of [Raft](https://ramcloud.stanford.edu/wiki/download/attachments/11370504/raft.pdf) in Go.
 * [doozer](https://github.com/ha/doozerd) - highly available leaderless consistent data store
 * [tiedot](https://github.com/HouzuoGuo/tiedot) - json document database (also embeddable)
  
