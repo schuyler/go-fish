@@ -56,6 +56,7 @@ possible next steps
 --------------
 * A parser / serializer for the [Redis wire protocol](http://redis.io/topics/protocol). Very possibly an existing [Redis client library for Go](http://redis.io/clients#Go) could be appropriated.
 * A [Raft transport layer](https://github.com/goraft/raft/blob/master/http_transporter.go) that uses the protocol layer.
+* A test infrastructure that uses a mature Redis client library written in Go to ensure protocol compatibility.
 * A partition structure with a plugin interface to allow data struct modules to register themselves, and the commands they support, with the server.
 * A dispatch layer that receives commands over the wire and dispatches them to the appropriate plugin for handling.
 * A first plugin implementing the GET/SET/INCR commands, &c.
