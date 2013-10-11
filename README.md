@@ -15,37 +15,39 @@ objectives
 * distributed
 * durable
 * higher availability
-* partition tolerant
-* eventually consistent
+* tolerant to network partition
 * easy to manage
 * maybe useful, someday
 
+design ideas
+------------
+[raftd](https://github.com/goraft/raftd) provides a scaffold for a network service that relies on the [Raft algorithm](https://ramcloud.stanford.edu/wiki/download/attachments/11370504/raft.pdf) to maintain consistency between nodes. The [goraft](https://github.com/goraft/raft) library supports an extensible command set and a pluggable transport layer.
+
+Next steps would include implementing:
+
+* A parser / serializer for the [Redis wire protocol](http://redis.io/topics/protocol). Very possibly an existing [Redis client library for Go](http://redis.io/clients#Go) could be appropriated.
+* A [Raft transport layer](https://github.com/goraft/raft/blob/master/http_transporter.go) that uses the protocol layer.
+* A partition structure with a plugin interface to allow data struct modules to register themselves, and the commands they support, with the server.
+* A dispatch layer that receives commands over the wire and dispatches them to the appropriate plugin for handling.
+* A first plugin implementing the GET/SET/INCR commands, &c.
+* Some kind of assignment process that distributes responsibility for handling each partition around the cluster.
+* Proxy routines for forwarding read requests to a responsible peer.
+
 stuff to consider
 -----------------
-* how is consistency maintained between nodes?
-* how does node discovery work?
 * log structured persistence. snapshots. log compaction.
-* [hinted handoff](http://www.datastax.com/dev/blog/modern-hinted-handoff)
-* active anti-entropy
-* read repair
-* conflict resolution: timestamps? vector clocks?
+* [hinted handoff](http://www.datastax.com/dev/blog/modern-hinted-handoff)?
 
 references
 ----------
+* [goraft](https://github.com/goraft/raft) - an implementation of [Raft](https://ramcloud.stanford.edu/wiki/download/attachments/11370504/raft.pdf) in Go.
+* [doozer](https://github.com/ha/doozerd) - highly available leaderless consistent data store (uses goraft)
 * a [skip list](https://bitbucket.org/ede/go-skiplist) or a [red-black tree](https://github.com/petar/GoLLRB) for indexing keys in memory
 * [snappy](https://code.google.com/p/snappy-go/) for compressing values?
 * [wendy](https://github.com/secondbit/wendy/) - another Go DHT
 * [vclock](https://labix.org/vclock) - vector clocks for Go
 * [hashring](https://github.com/warlockcc/golibs/tree/master/hashring) - consistent hashing implementation
-* [goraft](https://github.com/goraft/raft) - an implementation of [Raft](https://ramcloud.stanford.edu/wiki/download/attachments/11370504/raft.pdf) in Go.
-* [doozer](https://github.com/ha/doozerd) - highly available leaderless consistent data store
 * [tiedot](https://github.com/HouzuoGuo/tiedot) - json document database (also embeddable)
- 
-discarded options
------------------
-
-Most of these options relate to the earlier conception of go-fish as a NoSQL store.
-
 * [gocask](https://code.google.com/p/gocask/) provides an (incomplete) implementation of Bitcask
 * [leveldb-go](https://code.google.com/p/leveldb-go/) - another option for disk store, but not mature yet
 * [dht](https://github.com/nictuku/dht) - a distributed hash table implementation in Go, but too focused on BitTorrent?
